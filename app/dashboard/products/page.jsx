@@ -3,13 +3,13 @@ import Link from "next/link";
 import styles from "@/app/ui/dashboard/products/products.module.css";
 import Search from "@/app/ui/dashboard/search/search";
 import Pagination from "@/app/ui/dashboard/pagination/pagination";
-// import { fetchProducts } from "@/app/lib/data";
-// import { deleteProduct } from "@/app/lib/actions";
+import { fetchProducts } from "@/app/lib/data";
+import { deleteProduct } from "@/app/lib/actions";
 
 const ProductsPage = async ({ searchParams }) => {
   const q = searchParams?.q || "";
   const page = searchParams?.page || 1;
-//   const { count, products } = await fetchProducts(q, page);
+  const { count, products } = await fetchProducts(q, page);
 
   return (
     <div className={styles.container}>
@@ -31,7 +31,7 @@ const ProductsPage = async ({ searchParams }) => {
           </tr>
         </thead>
         <tbody>
-          {/* {products.map((product) => (
+          {products.map((product) => (
             <tr key={product.id}>
               <td>
                 <div className={styles.product}>
@@ -65,10 +65,10 @@ const ProductsPage = async ({ searchParams }) => {
                 </div>
               </td>
             </tr>
-          ))} */}
+          ))}
         </tbody>
       </table>
-      <Pagination />
+      <Pagination count={count} />
     </div>
   );
 };
